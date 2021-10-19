@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  db:
+    build:
+      dockerfile: Dockerfile_db
+      context: .
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: MySQL
+      MYSQL_DATABASE: sales
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: appuser
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql:/var/lib/mysql
+  app:
+    build:
+      dockerfile: Dockerfile_app
+      context: .
+    ports:
+      - 8082:80
+    volumes:
+      - noviano:/var/www/html
+
+volumes:
+  mysql:
+  noviano:
+
